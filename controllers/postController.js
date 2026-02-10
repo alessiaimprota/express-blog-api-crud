@@ -45,7 +45,8 @@ function destroy(req, res) {
   }
 
   listPosts.splice(listPosts.indexOf(post), 1);
-  res.send(`Eliminazione post ${id}`);
+
+  res.status(204).json(`Eliminazione post ${id}`);
 }
 
 module.exports = { index, show, store, modify, update, destroy };
