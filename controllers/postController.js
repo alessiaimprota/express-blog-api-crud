@@ -39,10 +39,12 @@ function update(req, res) {
 function destroy(req, res) {
   const id = parseInt(req.params.id);
   const post = listPosts.find((post) => post.id === id);
+
   if (!post) {
     res.status(404).json({ error: "Post non trovato" });
   }
 
+  listPosts.splice(listPosts.indexOf(post), 1);
   res.send(`Eliminazione post ${id}`);
 }
 
