@@ -47,8 +47,9 @@ function store(req, res) {
   //pusho il nuovo post creato nell'array diu obj in listPost e restituisco 201
   listPosts.push(newPost);
   console.log(listPosts);
+  //status 201 per creazione nuovo elemento
+  res.status(201);
   res.send("Nuovo post");
-  res.sed(201);
 }
 
 function modify(req, res) {
