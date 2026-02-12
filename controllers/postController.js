@@ -4,7 +4,6 @@ const { connect } = require("../routes/routesPost");
 
 function index(req, res) {
   //per la query ho creato un nuovo array con let che possa essere messo in comparazione con l'array di obj originali
-
   let filteredPosts = listPosts;
   //per non ripetere req.query.tag e le altre cose ho salvato tutto in una const
   //ho usato lowercase per normalizzare e replace metodo che ho trovato su internet per togliere gli spazi e normalizzare ulteriormente

@@ -4,7 +4,7 @@ const port = 3000;
 const postRoutes = require("./routes/routesPost");
 //importo middlewares
 const notFound = require("./middlewares/notFound");
-
+const errorsHandler = require("./middlewares/errorsHandler");
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
 
 app.use("/posts", postRoutes);
 
+app.use(errorsHandler);
 app.use(notFound);
 
 app.listen(port, () => {
