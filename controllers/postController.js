@@ -63,13 +63,25 @@ function modify(req, res) {
 }
 
 function update(req, res) {
+  //salvo l'id per confrontare che esiste
   const id = parseInt(req.params.id);
+  //salvo una variabile post che passa nel find per checkare l'id
   const post = listPosts.find((post) => post.id === id);
+  //se l'id non viene trovato e sarà undefined
+  //console.log(post);
+  //se è "non post", quindi non corrisponde, gestisco l'errore
   if (!post) {
     res.status(404).json({ error: "Post non trovato" });
   }
 
-  res.send(`Modifica post parziale ${id}`);
+  //riassegno qua i valori tramite le req
+  post.title = req.body.title;
+  post.content = req.body.content;
+  post.image = req.body.image;
+  post.tags = req.body.tags;
+
+  console.log(listPosts);
+  res.send(post);
 }
 function destroy(req, res) {
   const id = parseInt(req.params.id);
