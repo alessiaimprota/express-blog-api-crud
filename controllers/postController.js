@@ -2,15 +2,24 @@ const listPosts = require("../data/posts");
 const { connect } = require("../routes/routesPost");
 
 function index(req, res) {
+  //per la query ho creato un nuovo array con let che possa essere messo in comparazione con l'array di obj originali
+
   let filteredPosts = listPosts;
-  const tag = req.query.tag?.toLowerCase().trim();
+  //per non ripetere req.query.tag e le altre cose ho salvato tutto in una const
+  //ho usato lowercase per normalizzare e replace metodo che ho trovato su internet per togliere gli spazi e normalizzare ulteriormente
+  //ho letto un po' e dovrebbe essere rimuovere lo spazio globalmente
+
+  const tag = req.query.tag.toLowerCase().replace(/\s+/g, "");
   if (tag) {
-    filteredPosts = listPosts.filter((post) =>
-      post.tags.some((t) => {
-        console.log(t.toLowerCase().trim());
-        t.toLowerCase().trim() === tag;
-      }),
-    );
+    //ho filtrato l'array per riavere gli obj di mio interesse col tag specifico
+    filteredPosts = listPosts.filter((post) => {
+      //creo dei tag normalizzati
+      const normalizedTags = post.tags.map((t) =>
+        t.toLowerCase().replace(/\s+/g, ""),
+      );
+      //confronto e vedo se sono inclusi
+      return normalizedTags.includes(tag);
+    });
   }
   res.json(filteredPosts);
 }
