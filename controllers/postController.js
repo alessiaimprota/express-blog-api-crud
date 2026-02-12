@@ -95,7 +95,10 @@ function update(req, res) {
   console.log(listPosts);
   res.send(post);
 }
+
+//funzione cancellazione
 function destroy(req, res) {
+  //verifica sempre se id è presente
   const id = parseInt(req.params.id);
   const post = listPosts.find((post) => post.id === id);
 
@@ -103,6 +106,7 @@ function destroy(req, res) {
     res.status(404).json({ error: "Post non trovato" });
   }
 
+  //utilizzo di splice per decidere in base alla posizione dell'elemento con indexof
   listPosts.splice(listPosts.indexOf(post), 1);
 
   res.status(204).json(`Eliminazione post ${id}`);
