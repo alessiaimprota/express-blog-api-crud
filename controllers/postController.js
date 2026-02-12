@@ -1,4 +1,5 @@
 const listPosts = require("../data/posts");
+
 const { connect } = require("../routes/routesPost");
 
 function index(req, res) {
@@ -9,7 +10,9 @@ function index(req, res) {
   //ho usato lowercase per normalizzare e replace metodo che ho trovato su internet per togliere gli spazi e normalizzare ulteriormente
   //ho letto un po' e dovrebbe essere rimuovere lo spazio globalmente
 
-  const tag = req.query.tag.toLowerCase().replace(/\s+/g, "");
+  const tag = req.query.tag
+    ? req.query.tag.toLowerCase().replace(/\s+/g, "")
+    : "";
   if (tag) {
     //ho filtrato l'array per riavere gli obj di mio interesse col tag specifico
     filteredPosts = listPosts.filter((post) => {
