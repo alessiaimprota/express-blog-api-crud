@@ -52,6 +52,7 @@ function store(req, res) {
   res.send("Nuovo post");
 }
 
+//RIUTILIZZO DELLA LOGICA PUT PER UNA MODIFICA NON COMPLETA DEL OBJ
 function modify(req, res) {
   const id = parseInt(req.params.id);
   const post = listPosts.find((post) => post.id === id);
@@ -59,7 +60,11 @@ function modify(req, res) {
     res.status(404).json({ error: "Post non trovato" });
   }
 
-  res.send(`Modifica post integrale ${id}`);
+  post.title = req.body.title;
+  post.tags = req.body.tags;
+
+  console.log(listPosts);
+  res.send(post);
 }
 
 function update(req, res) {
