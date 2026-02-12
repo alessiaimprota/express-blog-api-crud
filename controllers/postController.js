@@ -52,7 +52,7 @@ function store(req, res) {
   res.send("Nuovo post");
 }
 
-//RIUTILIZZO DELLA LOGICA PUT PER UNA MODIFICA NON COMPLETA DEL OBJ
+//RIUTILIZZO DELLA LOGICA PUT PER UNA MODIFICA NON COMPLETA DEL OBJ + TERNARIO
 function modify(req, res) {
   const id = parseInt(req.params.id);
   const post = listPosts.find((post) => post.id === id);
@@ -60,8 +60,12 @@ function modify(req, res) {
     res.status(404).json({ error: "Post non trovato" });
   }
 
-  post.title = req.body.title;
-  post.tags = req.body.tags;
+  req.body.title ? (post.title = req.body.title) : (post.title = post.title);
+  req.body.content
+    ? (post.content = req.body.content)
+    : (post.content = post.content);
+  req.body.image ? (post.image = req.body.image) : (post.image = post.image);
+  req.body.tags ? (post.tags = req.body.tags) : (post.tags = post.tags);
 
   console.log(listPosts);
   res.send(post);
