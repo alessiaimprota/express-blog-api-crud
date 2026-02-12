@@ -1,4 +1,5 @@
 const listPosts = require("../data/posts");
+const { connect } = require("../routes/routesPost");
 
 function index(req, res) {
   let filteredPost = listPosts;
@@ -23,7 +24,21 @@ function show(req, res) {
 }
 
 function store(req, res) {
+  //restituisco un nuovo id, prendendo l'ultimo id dell'array+1
+  const newId = listPosts[listPosts.length - 1].id + 1;
+  // check console.log(newId);
+  //creazione del nuovo ogg che passerò tramite postman
+  const newPost = {
+    id: newId,
+    title: req.body.title,
+    content: req.body.content,
+    tags: req.body.tags,
+  };
+  //pusho il nuovo post creato nell'array diu obj in listPost e restituisco 201
+  listPosts.push(newPost);
+  console.log(listPosts);
   res.send("Nuovo post");
+  res.sed(201);
 }
 
 function modify(req, res) {
