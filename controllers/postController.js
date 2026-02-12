@@ -2,16 +2,17 @@ const listPosts = require("../data/posts");
 const { connect } = require("../routes/routesPost");
 
 function index(req, res) {
-  let filteredPost = listPosts;
-
-  /*if (req.query.tags) {
-    filteredPost = listPosts.filter(
-      (post) => post.tags.includes(req.query.tags),
-      res.json(filteredPost),
-      NON MI ESCE DOPO RIPROVO
-    );*/
-
-  res.json(listPosts);
+  let filteredPosts = listPosts;
+  const tag = req.query.tag?.toLowerCase().trim();
+  if (tag) {
+    filteredPosts = listPosts.filter((post) =>
+      post.tags.some((t) => {
+        console.log(t.toLowerCase().trim());
+        t.toLowerCase().trim() === tag;
+      }),
+    );
+  }
+  res.json(filteredPosts);
 }
 
 function show(req, res) {
